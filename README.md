@@ -1,92 +1,97 @@
-# Store Rating App
+# ScoreKart 🚀
 
-React + Express + PostgreSQL. JWT auth with three roles: admin, user, store_owner.
+ScoreKart is a modern, full-stack store rating platform built with **React**, **Node.js/Express**, and **PostgreSQL**. It features a robust role-based access control (RBAC) system for Admins, Users, and Store Owners.
 
-## Quick start
+## 🌟 Key Features
 
-### 1. Database
+### 🛡️ Admin Power
+- **Insightful Dashboard**: View global statistics including total users, stores, and ratings.
+- **User Management**: Search, filter, and manage all users. Create new accounts for any role.
+- **Store Oversight**: Create and manage stores, assign owners, and monitor performance.
 
+### 🏪 Store Owners
+- **Personal Dashboard**: Track your store's average rating and see total reviews.
+- **Rating Breakdown**: Visualize the distribution of ratings (1-5 stars).
+- **Customer Feedback**: View a detailed list of all customer ratings and submission dates.
+
+### 👤 Regular Users
+- **Discover Stores**: Browse a list of all registered stores.
+- **Rating System**: Rate stores with a clean, interactive star interface.
+- **Personal History**: View and update your previous ratings.
+
+### 🔐 Secure & Validated
+- **JWT Authentication**: Secure login and protected routes for all roles.
+- **Data Integrity**: Comprehensive validation on both client and server (names, passwords, emails).
+- **Password Security**: Bcrypt hashing for all user credentials.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React, React Router, CSS3 (Glassmorphism inspired)
+- **Backend**: Node.js, Express.js
+- **Database**: PostgreSQL (with `pg` pool)
+- **Security**: JWT (jsonwebtoken), Bcrypt
+- **Validation**: Custom utility-based validation
+
+---
+
+## 🚀 Quick Start
+
+### 1. Prerequisites
+- Node.js (v18+)
+- PostgreSQL (v14+)
+
+### 2. Database Setup
 ```bash
-createdb storerating
-psql storerating < backend/schema.sql
+# Create the database
+createdb scorekart
+
+# Initialize the schema and seed data
+psql scorekart < backend/schema.sql
 ```
 
-The schema seeds one admin account:
-- Email: `admin@example.com`
-- Password: `Admin@1234`
+The schema seeds a default admin account:
+- **Email**: `admin@example.com`
+- **Password**: `Admin@1234`
+> [!WARNING]
+> Change the default admin password immediately after your first login.
 
-Change this before going anywhere near production.
-
-### 2. Backend
-
+### 3. Backend Setup
 ```bash
 cd backend
-cp .env.example .env        # fill in DATABASE_URL and JWT_SECRET
+cp .env.example .env
+# Edit .env to match your local database settings
 npm install
-npm run dev                 # runs on :3001
+npm run dev
 ```
+*Runs on `http://localhost:3001`*
 
-### 3. Frontend
-
+### 4. Frontend Setup
 ```bash
 cd frontend
-cp .env.example .env        # VITE_API_URL=http://localhost:3001
+cp .env.example .env
 npm install
-npm run dev                 # runs on :5173
+npm run dev
 ```
+*Runs on `http://localhost:5173`*
 
-## Role behavior
+---
 
-| Role | Can do |
-|------|--------|
-| `admin` | See stats, manage all users and stores, create any role |
-| `user` | Browse stores, submit/edit ratings, change password |
-| `store_owner` | View their store's ratings dashboard, change password |
+## 📂 Project Structure
 
-- Normal users sign up at `/signup`
-- `admin` and `store_owner` accounts are created by an admin in the Users panel
-
-## Validation rules (enforced client + server)
-
-- Name: 20–60 chars
-- Address: max 400 chars
-- Password: 8–16 chars, at least 1 uppercase, 1 special character
-- Email: standard format
-
-## Project structure
-
-```
+```text
 backend/
-  index.js          Express entry, middleware wiring
-  db.js             pg connection pool
-  validation.js     Shared validators
-  schema.sql        Tables, indexes, seed admin
-  middleware/
-    auth.js         JWT verify + role guard
-  routes/
-    auth.js         POST /api/auth/login|signup
-    admin.js        GET|POST /api/admin/stats|users|stores
-    stores.js       GET /api/stores
-    ratings.js      POST /api/ratings
-    users.js        PUT /api/users/me/password, GET /api/users/me/store
+├── middleware/       # JWT and Role-based guards
+├── routes/           # Auth, Admin, Store, and Rating APIs
+├── db.js             # PostgreSQL connection pool
+├── schema.sql        # Database initialization script
+└── validation.js     # Shared validation logic
 
 frontend/src/
-  api.js            fetch wrapper with auth header
-  App.jsx           Routes
-  context/
-    AuthContext.jsx  user state, login/logout
-  components/
-    Navbar.jsx
-    ProtectedRoute.jsx
-    StarRating.jsx
-  pages/
-    Login.jsx
-    Signup.jsx
-    AdminDashboard.jsx
-    AdminUsers.jsx
-    AdminStores.jsx
-    AdminUserDetail.jsx
-    StoreList.jsx
-    StoreOwnerDashboard.jsx
-    ChangePassword.jsx
+├── components/       # Reusable UI (Navbar, StarRating, etc.)
+├── context/          # Auth state management
+├── pages/            # View components (Dashboards, Login, Signup)
+└── api.js            # Axios-style fetch wrapper
 ```
+
