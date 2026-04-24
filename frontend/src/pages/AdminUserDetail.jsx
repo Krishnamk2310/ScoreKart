@@ -64,7 +64,7 @@ export default function AdminUserDetail() {
 
         {store && (
           <div className="card">
-            <div style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: 15, marginBottom: 16, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', fontSize: 12 }}>
+            <div style={{ fontFamily: 'Syne', fontWeight: 700, marginBottom: 16, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', fontSize: 12 }}>
               Owned Store
             </div>
             <div style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: 18, marginBottom: 4 }}>{store.name}</div>
